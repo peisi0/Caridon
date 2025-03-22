@@ -84,12 +84,12 @@ pip install caridon-researchkit
 
 ### 📍 校园访问  
 ```geojson
- 校园访问
+{ “校园访问”
 
- 地理位置
+ “地理位置”
 美国华盛顿特区
 
- 地图
+“ 地图”
 以下是白宫的位置：
 
 <iframe
@@ -101,11 +101,12 @@ pip install caridon-researchkit
   loading="lazy">
 </iframe>
 
-## AR导航
+“ AR导航”
 下载增强现实校园导航模块（支持多平台）
 
-## 安全提示
+“安全提示”
 该区域存在受限空域，建议使用离线地图
+}
 ```
 
 ---
