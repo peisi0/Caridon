@@ -87,7 +87,8 @@ pip install caridon-researchkit
 {
   "坐标": [38.8977, -77.0365],
   "地理位置": "美国华盛顿特区",
-  "AR导航": "Caridon App Store 下载增强现实校园导航模块",
+  "地图服务": "https://www.openstreetmap.org/",
+  "AR导航": "下载增强现实校园导航模块（支持多平台）",
   "安全提示": "该区域存在受限空域，建议使用离线地图"
 }
 ```
