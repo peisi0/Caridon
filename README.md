@@ -84,13 +84,28 @@ pip install caridon-researchkit
 
 ### 📍 校园访问  
 ```geojson
-{
-  "坐标": [38.8977, -77.0365],
-  "地理位置": "美国华盛顿特区",
-  "地图服务": "https://www.openstreetmap.org/",
-  "AR导航": "下载增强现实校园导航模块（支持多平台）",
-  "安全提示": "该区域存在受限空域，建议使用离线地图"
-}
+# 校园访问
+
+## 地理位置
+美国华盛顿特区
+
+## 地图
+以下是白宫的位置：
+
+<iframe
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3105.150681351218!2d-77.03686668440438!3d38.89767645497572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7b7bcdecbb1df%3A0x715969d86d0b76bf!2sThe%20White%20House!5e0!3m2!1sen!2sus!4v1633021234567!5m2!1sen!2sus"
+  width="600"
+  height="450"
+  style="border:0;"
+  allowfullscreen=""
+  loading="lazy">
+</iframe>
+
+## AR导航
+下载增强现实校园导航模块（支持多平台）
+
+## 安全提示
+该区域存在受限空域，建议使用离线地图
 ```
 
 ---
