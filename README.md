@@ -1,5 +1,5 @@
 # Caridon University 🎓🌍  
-[![Education](https://img.shields.io/badge/Education-00447C?style=for-the-badge&logo=academia&logoColor=white)](https://caridon.edu)  
+[![Education](https://img.shields.io/badge/Education-00447C?style=for-the-badge&logo=c)](https://peisi0.github.io/caridon)  
 **Official GitHub Organization**  
 **探索 | 创新 | 卓越**  
 
