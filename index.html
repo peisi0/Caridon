@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caridon University</title>
+    <link rel="icon" href="CCUU.png" type="image/png">
     <style>
         :root {
             --primary: #2A5CAA;
@@ -118,6 +119,23 @@
             }
         }
 
+        /* 语言切换按钮 */
+        #lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 8px 16px;
+            transition: var(--transition);
+        }
+        #lang-switch:hover {
+            background: var(--secondary);
+        }
+
         /* 视差效果 */
         .parallax-section {
             background-attachment: fixed;
@@ -148,6 +166,9 @@
     </style>
 </head>
 <body>
+    <!-- 语言切换按钮 -->
+    <button id="lang-switch" class="lang-switch">中文/English</button>
+
     <!-- 导航栏 -->
     <header class="header" style="position: fixed; width: 100%; z-index: 1000; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
         <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0;">
@@ -167,9 +188,9 @@
         <section id="home" class="parallax-section" style="background-image: url('https://source.unsplash.com/random/1920x1080/?campus');">
             <div class="container">
                 <div class="animated-card" style="animation-delay: 0.2s; text-align: center;">
-                    <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);">Welcome to Caridon University</h1>
-                    <p style="font-size: 1.2rem; margin-bottom: 2rem;">Where innovation meets tradition</p>
-                    <a href="#features" class="btn">Learn More</a>
+                    <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);" data-lang="home-title">Welcome to Caridon University</h1>
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem;" data-lang="home-subtitle">Where innovation meets tradition</p>
+                    <a href="#features" class="btn" data-lang="home-button">Learn More</a>
                 </div>
             </div>
         </section>
@@ -177,19 +198,19 @@
         <!-- 特性区域 -->
         <section id="features" style="padding: 5rem 0; background: white;">
             <div class="container">
-                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Why Choose Caridon?</h2>
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;" data-lang="features-title">Why Choose Caridon?</h2>
                 <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
                     <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.4s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Innovative Learning</h3>
-                        <p>Our programs are designed to inspire creativity and critical thinking, preparing students for the challenges of the future.</p>
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;" data-lang="feature1-title">Innovative Learning</h3>
+                        <p data-lang="feature1-content">Our programs are designed to inspire creativity and critical thinking, preparing students for the challenges of the future.</p>
                     </div>
                     <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.6s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Global Community</h3>
-                        <p>Connect with students and faculty from around the world, fostering a diverse and inclusive learning environment.</p>
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;" data-lang="feature2-title">Global Community</h3>
+                        <p data-lang="feature2-content">Connect with students and faculty from around the world, fostering a diverse and inclusive learning environment.</p>
                     </div>
                     <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.8s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Career Success</h3>
-                        <p>Benefit from our comprehensive career services and industry partnerships to launch your professional journey.</p>
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;" data-lang="feature3-title">Career Success</h3>
+                        <p data-lang="feature3-content">Benefit from our comprehensive career services and industry partnerships to launch your professional journey.</p>
                     </div>
                 </div>
             </div>
@@ -198,19 +219,19 @@
         <!-- 课程区域 -->
         <section id="courses" style="padding: 5rem 0; background: var(--light);">
             <div class="container">
-                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Our Courses</h2>
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;" data-lang="courses-title">Our Courses</h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
                     <div class="animated-card" style="animation-delay: 0.4s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Computer Science</h3>
-                        <p>Explore the cutting-edge of technology with our comprehensive computer science program.</p>
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;" data-lang="course1-title">Computer Science</h3>
+                        <p data-lang="course1-content">Explore the cutting-edge of technology with our comprehensive computer science program.</p>
                     </div>
                     <div class="animated-card" style="animation-delay: 0.6s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Business Administration</h3>
-                        <p>Develop the skills needed to lead and manage in today's dynamic business environment.</p>
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;" data-lang="course2-title">Business Administration</h3>
+                        <p data-lang="course2-content">Develop the skills needed to lead and manage in today's dynamic business environment.</p>
                     </div>
                     <div class="animated-card" style="animation-delay: 0.8s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Fine Arts</h3>
-                        <p>Unleash your creativity with our fine arts program, designed for aspiring artists and designers.</p>
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;" data-lang="course3-title">Fine Arts</h3>
+                        <p data-lang="course3-content">Unleash your creativity with our fine arts program, designed for aspiring artists and designers.</p>
                     </div>
                 </div>
             </div>
@@ -219,22 +240,22 @@
         <!-- 活动区域 -->
         <section id="events" style="padding: 5rem 0; background: white;">
             <div class="container">
-                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Upcoming Events</h2>
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;" data-lang="events-title">Upcoming Events</h2>
                 <div style="display: flex; overflow-x: auto; gap: 2rem; padding: 1rem 0;">
                     <div class="animated-card" style="min-width: 300px; animation-delay: 0.4s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Tech Innovation Workshop</h3>
-                        <p>Join us for a hands-on workshop exploring the latest in tech innovation.</p>
-                        <p style="font-style: italic; margin-top: 1rem;">October 15, 2023</p>
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;" data-lang="event1-title">Tech Innovation Workshop</h3>
+                        <p data-lang="event1-content">Join us for a hands-on workshop exploring the latest in tech innovation.</p>
+                        <p style="font-style: italic; margin-top: 1rem;" data-lang="event1-date">October 15, 2023</p>
                     </div>
                     <div class="animated-card" style="min-width: 300px; animation-delay: 0.6s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Global Business Forum</h3>
-                        <p>Connect with industry leaders and explore global business opportunities.</p>
-                        <p style="font-style: italic; margin-top: 1rem;">November 5, 2023</p>
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;" data-lang="event2-title">Global Business Forum</h3>
+                        <p data-lang="event2-content">Connect with industry leaders and explore global business opportunities.</p>
+                        <p style="font-style: italic; margin-top: 1rem;" data-lang="event2-date">November 5, 2023</p>
                     </div>
                     <div class="animated-card" style="min-width: 300px; animation-delay: 0.8s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Art Exhibition</h3>
-                        <p>Showcase of student and faculty work in our annual art exhibition.</p>
-                        <p style="font-style: italic; margin-top: 1rem;">December 10, 2023</p>
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;" data-lang="event3-title">Art Exhibition</h3>
+                        <p data-lang="event3-content">Showcase of student and faculty work in our annual art exhibition.</p>
+                        <p style="font-style: italic; margin-top: 1rem;" data-lang="event3-date">December 10, 2023</p>
                     </div>
                 </div>
             </div>
@@ -244,13 +265,13 @@
         <section id="contact" style="padding: 5rem 0; background: var(--light);">
             <div class="container">
                 <div class="animated-card" style="max-width: 600px; margin: 0 auto; animation-delay: 0.3s; text-align: center;">
-                    <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Get In Touch</h2>
-                    <p style="margin-bottom: 2rem;">Have questions? Reach out to us!</p>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 2rem;" data-lang="contact-title">Get In Touch</h2>
+                    <p style="margin-bottom: 2rem;" data-lang="contact-content">Have questions? Reach out to us!</p>
                     <form id="contact-form" style="display: grid; gap: 1.5rem;">
-                        <input type="text" placeholder="Your Name" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
-                        <input type="email" placeholder="Your Email" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
-                        <textarea placeholder="Your Message" rows="5" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;"></textarea>
-                        <button type="submit" class="btn" style="justify-self: center;">Send Message</button>
+                        <input type="text" placeholder="Your Name" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" data-lang="contact-name">
+                        <input type="email" placeholder="Your Email" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" data-lang="contact-email">
+                        <textarea placeholder="Your Message" rows="5" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;" data-lang="contact-message"></textarea>
+                        <button type="submit" class="btn" style="justify-self: center;" data-lang="contact-button">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -260,20 +281,130 @@
     <!-- 页脚 -->
     <footer style="background: var(--dark); color: white; padding: 2rem 0; text-align: center;">
         <div class="container">
-            <p>© 2023 Caridon University. All rights reserved.</p>
+            <p data-lang="footer-copyright">© 2023 Caridon University. All rights reserved.</p>
             <div style="margin-top: 1rem;">
-                <a href="#" style="color: white; margin: 0 1rem; text-decoration: none;">Privacy Policy</a>
-                <a href="#" style="color: white; margin: 0 1rem; text-decoration: none;">Terms of Service</a>
-                <a href="#" style="color: white; margin: 0 1rem; text-decoration: none;">Contact Us</a>
+                <a href="#" style="color: white; margin: 0 1rem; text-decoration: none;" data-lang="footer-policy">Privacy Policy</a>
+                <a href="#" style="color: white; margin: 0 1rem; text-decoration: none;" data-lang="footer-terms">Terms of Service</a>
+                <a href="#" style="color: white; margin: 0 1rem; text-decoration: none;" data-lang="footer-contact">Contact Us</a>
             </div>
         </div>
     </footer>
 
     <!-- JavaScript 动画库 & 功能 -->
     <script>
-        // 页面加载动画
+        // 语言切换功能
+        const translations = {
+            'en': {
+                'home-title': 'Welcome to Caridon University',
+                'home-subtitle': 'Where innovation meets tradition',
+                'home-button': 'Learn More',
+                'features-title': 'Why Choose Caridon?',
+                'feature1-title': 'Innovative Learning',
+                'feature1-content': 'Our programs are designed to inspire creativity and critical thinking, preparing students for the challenges of the future.',
+                'feature2-title': 'Global Community',
+                'feature2-content': 'Connect with students and faculty from around the world, fostering a diverse and inclusive learning environment.',
+                'feature3-title': 'Career Success',
+                'feature3-content': 'Benefit from our comprehensive career services and industry partnerships to launch your professional journey.',
+                'courses-title': 'Our Courses',
+                'course1-title': 'Computer Science',
+                'course1-content': 'Explore the cutting-edge of technology with our comprehensive computer science program.',
+                'course2-title': 'Business Administration',
+                'course2-content': 'Develop the skills needed to lead and manage in today\'s dynamic business environment.',
+                'course3-title': 'Fine Arts',
+                'course3-content': 'Unleash your creativity with our fine arts program, designed for aspiring artists and designers.',
+                'events-title': 'Upcoming Events',
+                'event1-title': 'Tech Innovation Workshop',
+                'event1-content': 'Join us for a hands-on workshop exploring the latest in tech innovation.',
+                'event1-date': 'October 15, 2023',
+                'event2-title': 'Global Business Forum',
+                'event2-content': 'Connect with industry leaders and explore global business opportunities.',
+                'event2-date': 'November 5, 2023',
+                'event3-title': 'Art Exhibition',
+                'event3-content': 'Showcase of student and faculty work in our annual art exhibition.',
+                'event3-date': 'December 10, 2023',
+                'contact-title': 'Get In Touch',
+                'contact-content': 'Have questions? Reach out to us!',
+                'contact-name': 'Your Name',
+                'contact-email': 'Your Email',
+                'contact-message': 'Your Message',
+                'contact-button': 'Send Message',
+                'footer-copyright': '© 2023 Caridon University. All rights reserved.',
+                'footer-policy': 'Privacy Policy',
+                'footer-terms': 'Terms of Service',
+                'footer-contact': 'Contact Us'
+            },
+            'zh': {
+                'home-title': '欢迎来到Caridon大学',
+                'home-subtitle': '创新与传统的交汇',
+                'home-button': '了解更多',
+                'features-title': '为什么选择Caridon？',
+                'feature1-title': '创新学习',
+                'feature1-content': '我们的课程旨在激发创造力和批判性思维，为学生应对未来的挑战做好准备。',
+                'feature2-title': '全球社区',
+                'feature2-content': '与来自世界各地的学生和教职员工连接，营造多元化和包容的学习环境。',
+                'feature3-title': '职业成功',
+                'feature3-content': '从我们全面的职业服务和行业合作伙伴关系中受益，开启您的职业旅程。',
+                'courses-title': '我们的课程',
+                'course1-title': '计算机科学',
+                'course1-content': '通过我们全面的计算机科学课程，探索技术的前沿。',
+                'course2-title': '工商管理',
+                'course2-content': '培养在当今动态商业环境中领导和管理所需的技能。',
+                'course3-title': '美术',
+                'course3-content': '通过我们的美术课程释放您的创造力，专为有抱负的艺术家和设计师设计。',
+                'events-title': '即将举行的活动',
+                'event1-title': '技术创新研讨会',
+                'event1-content': '参加我们的动手研讨会，探索最新的技术创新。',
+                'event1-date': '2023年10月15日',
+                'event2-title': '全球商业论坛',
+                'event2-content': '与行业领袖连接，探索全球商业机会。',
+                'event2-date': '2023年11月5日',
+                'event3-title': '艺术展览',
+                'event3-content': '在我们的年度艺术展览中展示学生和教职员工的作品。',
+                'event3-date': '2023年12月10日',
+                'contact-title': '联系我们',
+                'contact-content': '有问题吗？联系我们！',
+                'contact-name': '您的姓名',
+                'contact-email': '您的邮箱',
+                'contact-message': '您的留言',
+                'contact-button': '发送留言',
+                'footer-copyright': '© 2023 Caridon大学。保留所有权利。',
+                'footer-policy': '隐私政策',
+                'footer-terms': '服务条款',
+                'footer-contact': '联系我们'
+            }
+        };
+
+        let currentLang = 'en';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
+                }
+            });
+            localStorage.setItem('lang', lang);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            // 滚动动画
+            // 语言切换按钮
+            document.getElementById('lang-switch').addEventListener('click', () => {
+                currentLang = currentLang === 'en' ? 'zh' : 'en';
+                switchLanguage(currentLang);
+            });
+
+            // 检查本地存储中的语言设置
+            const savedLang = localStorage.getItem('lang');
+            if (savedLang && savedLang !== 'en') {
+                switchLanguage(savedLang);
+            }
+
+            // 页面加载动画
             const animateOnScroll = () => {
                 const elements = document.querySelectorAll('.animated-card');
                 elements.forEach(el => {
