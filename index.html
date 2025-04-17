@@ -7,10 +7,16 @@
     <link rel="icon" href="CCUU.png" type="image/png">
     <style>
         :root {
-            --primary: #2A5CAA;
-            --secondary: #FF6B6B;
-            --light: #F8F9FA;
+            --primary: #0067C0;
+            --secondary: #4CC2FF;
+            --light: #ffffff;
             --dark: #212529;
+            --lt: #f7f7f7;
+            --dk: #343a40;
+            --sl: rgba(0,0,0,0.1);
+            --sd: rgba(255,255,255,0.1);
+            --slt: rgba(0,0,0,0.2);
+            --sdt: rgba(255,255,255,0.2);
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
         }
 
@@ -24,7 +30,7 @@
 
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
-            background: var(--light);
+            background: var(--lt);
             color: var(--dark);
             overflow-x: hidden;
             line-height: 1.6;
@@ -33,10 +39,20 @@
         /* 主题切换系统 */
         @media (prefers-color-scheme: dark) {
             :root {
+                --primary: #4CC2FF;
+                --secondary: #0067C0;
                 --light: #121212;
-                --dark: #F8F9FA;
+                --dark: #ffffff;
+                --lt: #343a40;
+                --dk: #f7f7f7;
+                --sl: rgba(255,255,255,0.1);
+                --sd: rgba(0,0,0,0.1);
+                --slt: rgba(255,255,255,0.2);
+                --sdt: rgba(0,0,0,0.2);
             }
         }
+
+        
 
         /* 布局系统 */
         .container {
@@ -48,10 +64,10 @@
 
         /* 动画组件 */
         .animated-card {
-            background: white;
+            background: var(--light);
             border-radius: 12px;
             padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px var(--sl);
             transition: var(--transition);
             transform: translateY(0);
             opacity: 0;
@@ -67,7 +83,7 @@
         }
         .card-hover:hover {
             transform: perspective(1000px) rotateY(10deg) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 30px var(--slt);
         }
 
         /* 按钮系统 */
@@ -75,7 +91,7 @@
             display: inline-block;
             padding: 12px 24px;
             background: var(--primary);
-            color: white;
+            color: var(--light);
             border-radius: 50px;
             text-decoration: none;
             position: relative;
@@ -150,7 +166,7 @@
 </head>
 <body>
     <!-- 导航栏 -->
-    <header class="header" style="position: fixed; width: 100%; z-index: 1000; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <header class="header" style="position: fixed; width: 100%; z-index: 1000; background: var(--light); box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
         <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0;">
             <div class="logo" style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">Caridon University</div>
             <nav>
@@ -176,7 +192,7 @@
         </section>
 
         <!-- 特性区域 -->
-        <section id="features" style="padding: 5rem 0; background: white;">
+        <section id="features" style="padding: 5rem 0; background: var(--light);;">
             <div class="container">
                 <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Why Choose Caridon?</h2>
                 <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
@@ -197,7 +213,7 @@
         </section>
 
         <!-- 课程区域 -->
-        <section id="courses" style="padding: 5rem 0; background: var(--light);">
+        <section id="courses" style="padding: 5rem 0; background: var(--lt);">
             <div class="container">
                 <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Our Courses</h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
@@ -218,7 +234,7 @@
         </section>
 
         <!-- 活动区域 -->
-        <section id="events" style="padding: 5rem 0; background: white;">
+        <section id="events" style="padding: 5rem 0; background: var(--light);">
             <div class="container">
                 <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Upcoming Events</h2>
                 <div style="display: flex; overflow-x: auto; gap: 2rem; padding: 1rem 0;">
@@ -242,7 +258,7 @@
         </section>
 
         <!-- 联系区域 -->
-        <section id="contact" style="padding: 5rem 0; background: var(--light);">
+        <section id="contact" style="padding: 5rem 0; background: var(--lt);">
             <div class="container">
                 <div class="animated-card" style="max-width: 600px; margin: 0 auto; animation-delay: 0.3s; text-align: center;">
                     <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Get In Touch</h2>
@@ -259,13 +275,13 @@
     </main>
 
     <!-- 页脚 -->
-    <footer style="background: var(--dark); color: white; padding: 2rem 0; text-align: center;">
+    <footer style="background: var(--dark); color: var(--light); padding: 2rem 0; text-align: center;">
         <div class="container">
             <p>© 2051 Caridon University. All rights reserved.</p>
             <div style="margin-top: 1rem;">
-                <a href="#" style="color: white; margin: 0 1rem; text-decoration: none;">Privacy Policy</a>
-                <a href="#" style="color: white; margin: 0 1rem; text-decoration: none;">Terms of Service</a>
-                <a href="#" style="color: white; margin: 0 1rem; text-decoration: none;">Contact Us</a>
+                <a href="#" style="color: var(--light); margin: 0 1rem; text-decoration: none;">Privacy Policy</a>
+                <a href="#" style="color: var(--light); margin: 0 1rem; text-decoration: none;">Terms of Service</a>
+                <a href="#" style="color: var(--light); margin: 0 1rem; text-decoration: none;">Contact Us</a>
             </div>
         </div>
     </footer>
