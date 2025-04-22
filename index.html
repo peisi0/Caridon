@@ -52,7 +52,6 @@
             }
         }
 
-        
 
         /* 布局系统 */
         .container {
@@ -217,15 +216,15 @@
             <div class="container">
                 <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Our Courses</h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                    <div class="animated-card" style="animation-delay: 0.4s;">
+                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.4s;">
                         <h3 style="color: var(--primary); margin-bottom: 1rem;">Computer Science</h3>
                         <p>Explore the cutting-edge of technology with our comprehensive computer science program.</p>
                     </div>
-                    <div class="animated-card" style="animation-delay: 0.6s;">
+                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.6s;">
                         <h3 style="color: var(--primary); margin-bottom: 1rem;">Business Administration</h3>
                         <p>Develop the skills needed to lead and manage in today's dynamic business environment.</p>
                     </div>
-                    <div class="animated-card" style="animation-delay: 0.8s;">
+                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.8s;">
                         <h3 style="color: var(--primary); margin-bottom: 1rem;">Fine Arts</h3>
                         <p>Unleash your creativity with our fine arts program, designed for aspiring artists and designers.</p>
                     </div>
@@ -237,18 +236,18 @@
         <section id="events" style="padding: 5rem 0; background: var(--light);">
             <div class="container">
                 <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Upcoming Events</h2>
-                <div style="display: flex; overflow-x: auto; gap: 2rem; padding: 1rem 0;">
-                    <div class="animated-card" style="min-width: 300px; animation-delay: 0.4s;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.4s;">
                         <h3 style="color: var(--primary); margin-bottom: 1rem;">Tech Innovation Workshop</h3>
                         <p>Join us for a hands-on workshop exploring the latest in tech innovation.</p>
                         <p style="font-style: italic; margin-top: 1rem;">October 15, 2060</p>
                     </div>
-                    <div class="animated-card" style="min-width: 300px; animation-delay: 0.6s;">
+                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.6s;">
                         <h3 style="color: var(--primary); margin-bottom: 1rem;">Global Business Forum</h3>
                         <p>Connect with industry leaders and explore global business opportunities.</p>
                         <p style="font-style: italic; margin-top: 1rem;">November 5, 2060</p>
                     </div>
-                    <div class="animated-card" style="min-width: 300px; animation-delay: 0.8s;">
+                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.8s;">
                         <h3 style="color: var(--primary); margin-bottom: 1rem;">Art Exhibition</h3>
                         <p>Showcase of student and faculty work in our annual art exhibition.</p>
                         <p style="font-style: italic; margin-top: 1rem;">December 10, 2060</p>
@@ -260,7 +259,7 @@
         <!-- 联系区域 -->
         <section id="contact" style="padding: 5rem 0; background: var(--lt);">
             <div class="container">
-                <div class="animated-card" style="max-width: 600px; margin: 0 auto; animation-delay: 0.3s; text-align: center;">
+                <div class="animated-card card:hover" style="max-width: 600px; margin: 0 auto; animation-delay: 0.3s; text-align: center;">
                     <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Get In Touch</h2>
                     <p style="margin-bottom: 2rem;">Have questions? Reach out to us!</p>
                     <form id="contact-form" style="display: grid; gap: 1.5rem;">
