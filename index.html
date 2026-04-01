@@ -630,7 +630,7 @@
                 <div class="contact-panel">
                     <h2 class="section-title" style="font-size: clamp(1.5rem, 3.4vw, 2.25rem);">Get in touch</h2>
                     <p class="section-subtitle" style="margin-bottom: 1.25rem;">Questions about admissions, programs, or campus life? We'd love to hear from you.</p>
-                    <form id="contact-form" class="form">
+                    <form id="contact-form" class="form" action="https://formspree.io/f/你的form_id" method="POST">
                         <label class="sr-label" for="contact-name">Your Name</label>
                         <input id="contact-name" name="name" type="text" placeholder="Your Name" required class="form-control">
                         <label class="sr-label" for="contact-email">Your Email</label>
@@ -664,20 +664,20 @@
             const header = document.getElementById('site-header');
             const parallaxElements = document.querySelectorAll('[data-parallax]');
             const heroWordmark = document.getElementById('hero-wordmark');
-
+        
             const updateScrollEffects = () => {
                 const scrollY = window.pageYOffset || 0;
                 document.documentElement.style.setProperty('--scrollY', scrollY + 'px');
-
+            
                 if (header) {
                     header.classList.toggle('scrolled', scrollY > 20);
                 }
-
+            
                 parallaxElements.forEach((element) => {
                     const speed = parseFloat(element.getAttribute('data-parallax')) || 0.1;
                     element.style.transform = `translateY(${scrollY * speed * -1}px)`;
                 });
-
+            
                 if (heroWordmark) {
                     const minScale = 0.55;
                     const maxScroll = 600;
@@ -686,45 +686,99 @@
                     heroWordmark.style.transform = `scale(${scale})`;
                 }
             };
-
+        
             updateScrollEffects();
             window.addEventListener('scroll', updateScrollEffects, { passive: true });
-
+        
             document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
                 anchor.addEventListener('click', (event) => {
                     const targetId = anchor.getAttribute('href');
-                    if (!targetId || targetId === '#') {
-                        return;
-                    }
-
+                    if (!targetId || targetId === '#') return;
+                
                     const target = document.querySelector(targetId);
-                    if (!target) {
-                        return;
-                    }
-
+                    if (!target) return;
+                
                     event.preventDefault();
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 });
             });
-
+        
             const contactForm = document.getElementById('contact-form');
             if (contactForm) {
-                contactForm.addEventListener('submit', function (e) {
+                contactForm.addEventListener('submit', async function (e) {
                     e.preventDefault();
+                
                     const submitBtn = this.querySelector('button[type="submit"]');
-                    submitBtn.textContent = 'Sending...';
-                    submitBtn.style.opacity = '0.7';
-
-                    setTimeout(() => {
-                        submitBtn.textContent = 'Message Sent!';
-                        submitBtn.style.background = 'linear-gradient(135deg, #45d26d, #2aa95f)';
+                    const originalText = submitBtn ? submitBtn.textContent : 'Send Message';
+                
+                    // 读取 form action（Formspree endpoint）
+                    const endpoint = (this.getAttribute('action') || '').trim();
+                    if (!endpoint) {
+                        alert('Form endpoint is missing. Please set form action to your Formspree URL.');
+                        return;
+                    }
+                
+                    // 构建表单数据
+                    const formData = new FormData(this);
+                
+                    try {
+                        if (submitBtn) {
+                            submitBtn.disabled = true;
+                            submitBtn.textContent = 'Sending...';
+                            submitBtn.style.opacity = '0.7';
+                        }
+                    
+                        const response = await fetch(endpoint, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                    
+                        if (!response.ok) {
+                            let message = 'Failed to send message.';
+                            try {
+                                const data = await response.json();
+                                if (data && data.errors && data.errors.length) {
+                                    message = data.errors.map(err => err.message).join('\n');
+                                }
+                            } catch (_) {}
+                            throw new Error(message);
+                        }
+                    
+                        if (submitBtn) {
+                            submitBtn.textContent = 'Message Sent!';
+                            submitBtn.style.background = 'linear-gradient(135deg, #45d26d, #2aa95f)';
+                        }
+                    
+                        this.reset();
+                    
                         setTimeout(() => {
-                            submitBtn.textContent = 'Send Message';
-                            submitBtn.style.opacity = '';
-                            submitBtn.style.background = '';
-                            this.reset();
+                            if (submitBtn) {
+                                submitBtn.textContent = originalText;
+                                submitBtn.style.opacity = '';
+                                submitBtn.style.background = '';
+                                submitBtn.disabled = false;
+                            }
                         }, 2000);
-                    }, 1500);
+                    } catch (error) {
+                        if (submitBtn) {
+                            submitBtn.textContent = 'Send Failed';
+                            submitBtn.style.background = 'linear-gradient(135deg, #ff6b6b, #e03131)';
+                        }
+                    
+                        alert(error.message || 'Something went wrong. Please try again.');
+                    
+                        setTimeout(() => {
+                            if (submitBtn) {
+                                submitBtn.textContent = originalText;
+                                submitBtn.style.opacity = '';
+                                submitBtn.style.background = '';
+                                submitBtn.disabled = false;
+                            }
+                        }, 2200);
+                    }
                 });
             }
         });
