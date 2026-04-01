@@ -3,12 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Caridon University official website featuring programs, events, admissions contact, and degree application guidance.">
     <title>Caridon University</title>
     <link rel="icon" href="CCUU.png" type="image/png">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzE9xAESye6Kde-3hT-6B90nfwUkcS8Yw&sensor=false"></script>
     <script>
         function test()
         {
+            if (!window.google || !google.maps) {
+                var fallbackMap = document.getElementById("googleMap");
+                if (fallbackMap) {
+                    fallbackMap.textContent = "Campus map is currently unavailable. Please contact admissions for directions.";
+                    fallbackMap.style.display = "grid";
+                    fallbackMap.style.placeItems = "center";
+                    fallbackMap.style.padding = "1rem";
+                    fallbackMap.style.background = "#ffffff";
+                    fallbackMap.style.borderRadius = "10px";
+                    fallbackMap.style.boxShadow = "0 5px 15px rgba(0,0,0,0.1)";
+                }
+                return;
+            }
             var Map = {
                 center: new google.maps.LatLng(16.88397681771519, 145.84532360638605),
                 zoom: 14,
@@ -17,7 +31,7 @@
             var map = new google.maps.Map(document.getElementById("googleMap"), Map);
         }
 
-        google.maps.event.addDomListener(window, 'load', test);
+        window.addEventListener('load', test);
     </script>
     <style>
         :root {
@@ -175,6 +189,42 @@
                 padding: 4rem 0;
             }
         }
+
+        .header-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .map-wrapper {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #googleMap {
+            width: 100%;
+            height: 400px;
+        }
+
+        .form-control {
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #dce4ed;
+            font: inherit;
+        }
+
+        .sr-label {
+            text-align: left;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -182,11 +232,12 @@
     <header class="header" style="position: fixed; width: 100%; z-index: 1000; background: var(--light); box-shadow: 0 2px 10px var(--sl);">
         <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0;">
             <div class="logo" style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">Caridon University</div>
-            <nav>
+            <nav class="header-nav" aria-label="Main navigation">
                 <a href="#home" class="btn" style="margin-left: 1rem;">Home</a>
                 <a href="#features" class="btn" style="margin-left: 1rem;">Features</a>
                 <a href="#courses" class="btn" style="margin-left: 1rem;">Courses</a>
                 <a href="#contact" class="btn" style="margin-left: 1rem;">Contact</a>
+                <a href="Degree_Application/" class="btn" style="margin-left: 1rem;">Apply Now</a>
             </nav>
         </div>
     </header>
@@ -200,6 +251,7 @@
                     <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);">Welcome to Caridon University</h1>
                     <p style="font-size: 1.2rem; margin-bottom: 2rem;">Where innovation meets tradition</p>
                     <a href="#features" class="btn">Learn More</a>
+                    <a href="Degree_Application/" class="btn" style="margin-left: 0.5rem;">Apply for a Degree</a>
                 </div>
             </div>
         </section>
@@ -207,7 +259,7 @@
         <!-- 特性区域 -->
         <section id="features" style="padding: 5rem 0; background: var(--light);;">
             <div class="container">
-                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Why Choose Caridon?</h2>
+                <h2 class="section-title">Why Choose Caridon?</h2>
                 <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
                     <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.4s;">
                         <h3 style="color: var(--primary); margin-bottom: 1rem;">Innovative Learning</h3>
@@ -228,7 +280,7 @@
         <!-- 课程区域 -->
         <section id="courses" style="padding: 5rem 0; background: var(--lt);">
             <div class="container">
-                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Our Courses</h2>
+                <h2 class="section-title">Our Courses</h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
                     <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.4s;">
                         <h3 style="color: var(--primary); margin-bottom: 1rem;">Computer Science</h3>
@@ -249,7 +301,7 @@
         <!-- 活动区域 -->
         <section id="events" style="padding: 5rem 0; background: var(--light);">
             <div class="container">
-                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Upcoming Events</h2>
+                <h2 class="section-title">Upcoming Events</h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
                     <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.4s;">
                         <h3 style="color: var(--primary); margin-bottom: 1rem;">Tech Innovation Workshop</h3>
@@ -273,13 +325,16 @@
         <!-- 联系区域 -->
         <section id="contact" style="padding: 5rem 0; background: var(--lt);">
             <div class="container">
-                <div class="animated-card card:hover" style="max-width: 600px; margin: 0 auto; animation-delay: 0.3s; text-align: center;">
-                    <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Get In Touch</h2>
+                <div class="animated-card card-hover" style="max-width: 600px; margin: 0 auto; animation-delay: 0.3s; text-align: center;">
+                    <h2 class="section-title" style="margin-bottom: 2rem;">Get In Touch</h2>
                     <p style="margin-bottom: 2rem;">Have questions? Reach out to us!</p>
                     <form id="contact-form" style="display: grid; gap: 1.5rem;">
-                        <input type="text" placeholder="Your Name" style="padding: 12px; border-radius: 8px; border: 2.5px solid var(--lt);">
-                        <input type="email" placeholder="Your Email" style="padding: 12px; border-radius: 8px; border: 2.5px solid var(--lt);">
-                        <textarea placeholder="Your Message" rows="5" style="padding: 12px; border-radius: 8px; border: 2.5px solid var(--lt);"></textarea>
+                        <label class="sr-label" for="contact-name">Your Name</label>
+                        <input id="contact-name" name="name" type="text" placeholder="Your Name" required class="form-control">
+                        <label class="sr-label" for="contact-email">Your Email</label>
+                        <input id="contact-email" name="email" type="email" placeholder="Your Email" required class="form-control">
+                        <label class="sr-label" for="contact-message">Your Message</label>
+                        <textarea id="contact-message" name="message" placeholder="Your Message" rows="5" required class="form-control"></textarea>
                         <button type="submit" class="btn" style="justify-self: center;">Send Message</button>
                     </form>
                 </div>
@@ -287,8 +342,10 @@
 
             <!-- 地图区域 -->
             <br>
-            <h2 style="font-size: 2.5rem; margin-bottom: 2rem; text-align: center;">We are located here</h2>
-            <div id="googleMap" style="width:800px; height:400px; justify-self: center;"></div>
+            <h2 class="section-title" style="margin-bottom: 2rem;">We are located here</h2>
+            <div class="map-wrapper">
+                <div id="googleMap" aria-label="Campus location map"></div>
+            </div>
 
         </section>
     </main>

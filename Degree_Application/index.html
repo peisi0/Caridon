@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apply for undergraduate and graduate degree programs at Caridon University.">
+    <title>Degree Application - Caridon University</title>
+    <link rel="icon" href="../CCUU.png" type="image/png">
+    <style>
+        :root {
+            --primary: #0067C0;
+            --light: #ffffff;
+            --dark: #212529;
+            --lt: #f7f7f7;
+            --sl: rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--lt);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: var(--light);
+            box-shadow: 0 2px 10px var(--sl);
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 20px;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: none;
+            background: var(--primary);
+            color: var(--light);
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        main {
+            padding: 2rem 0 3rem;
+        }
+
+        .card {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px var(--sl);
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .intro {
+            margin-bottom: 1.5rem;
+        }
+
+        form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .grid-two {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            border: 1px solid #ccd8e5;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font: inherit;
+            background: #fff;
+        }
+
+        .hint {
+            font-size: 0.9rem;
+            color: #4f5b66;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem 0 2rem;
+            color: #4f5b66;
+        }
+
+        @media (max-width: 700px) {
+            .grid-two {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a class="logo" href="../">Caridon University</a>
+            <nav aria-label="Degree application navigation">
+                <a class="btn" href="../">Back to Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="card">
+                <h1>Apply for a Degree</h1>
+                <p class="intro">Submit your application for undergraduate or graduate degree programs at Caridon University. Our admissions team will contact you within 5–7 working days.</p>
+                <form>
+                    <div class="grid-two">
+                        <div>
+                            <label for="first-name">First Name</label>
+                            <input id="first-name" name="firstName" type="text" required autocomplete="given-name">
+                        </div>
+                        <div>
+                            <label for="last-name">Last Name</label>
+                            <input id="last-name" name="lastName" type="text" required autocomplete="family-name">
+                        </div>
+                    </div>
+
+                    <div class="grid-two">
+                        <div>
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" required autocomplete="email">
+                        </div>
+                        <div>
+                            <label for="phone">Phone</label>
+                            <input id="phone" name="phone" type="tel" required autocomplete="tel">
+                        </div>
+                    </div>
+
+                    <div class="grid-two">
+                        <div>
+                            <label for="degree-level">Degree Level</label>
+                            <select id="degree-level" name="degreeLevel" required>
+                                <option value="">Select a degree level</option>
+                                <option value="undergraduate">Undergraduate</option>
+                                <option value="graduate">Graduate</option>
+                                <option value="doctoral">Doctoral</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="program">Intended Program</label>
+                            <select id="program" name="program" required>
+                                <option value="">Select a program</option>
+                                <option value="computer-science">Computer Science</option>
+                                <option value="business-administration">Business Administration</option>
+                                <option value="fine-arts">Fine Arts</option>
+                                <option value="ethical-ai">Ethical AI</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="statement">Personal Statement</label>
+                        <textarea id="statement" name="statement" rows="6" required></textarea>
+                        <p class="hint">Tell us about your academic goals, interests, and why you want to join Caridon University.</p>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Submit Application</button>
+                        <button type="reset" class="btn btn-secondary">Reset Form</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2051 Caridon University. Admissions Office: <a href="mailto:admissions@caridon.edu">admissions@caridon.edu</a></p>
+    </footer>
+</body>
+</html>
