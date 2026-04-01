@@ -162,6 +162,7 @@
             align-items: center;
             padding-top: 105px;
             isolation: isolate;
+            overflow: hidden;
         }
 
         .hero::before,
@@ -194,6 +195,8 @@
             grid-template-columns: 1.2fr 0.9fr;
             gap: 2rem;
             align-items: center;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-kicker {
@@ -256,6 +259,32 @@
 
         .hero-card p {
             color: var(--muted);
+        }
+
+        .hero-wordmark-wrap {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: clamp(10px, 2.2vw, 24px);
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hero-wordmark {
+            font-family: 'Special Gothic', 'Segoe UI', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 0.85;
+            white-space: nowrap;
+            font-size: clamp(2.2rem, 14vw, 11rem);
+            color: rgba(255, 255, 255, 0.08);
+            text-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+            transform-origin: center bottom;
+            transform: scale(1);
+            transition: transform 0.08s linear;
         }
 
         .metrics {
@@ -430,6 +459,15 @@
             .hero-card {
                 max-width: 620px;
             }
+
+            .hero-wordmark-wrap {
+                bottom: 8px;
+            }
+
+            .hero-wordmark {
+                font-size: clamp(2rem, 13vw, 7rem);
+                letter-spacing: 0.05em;
+            }
         }
 
         @media (max-width: 760px) {
@@ -458,6 +496,10 @@
 
             .metrics {
                 grid-template-columns: repeat(3, minmax(80px, 1fr));
+            }
+
+            .hero-wordmark {
+                font-size: clamp(1.6rem, 12vw, 4.8rem);
             }
         }
     </style>
@@ -507,6 +549,10 @@
                         </div>
                     </div>
                 </aside>
+            </div>
+
+            <div class="hero-wordmark-wrap" aria-hidden="true">
+                <div class="hero-wordmark" id="hero-wordmark">CARIDON UNIVERSITY</div>
             </div>
         </section>
 
@@ -617,6 +663,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const header = document.getElementById('site-header');
             const parallaxElements = document.querySelectorAll('[data-parallax]');
+            const heroWordmark = document.getElementById('hero-wordmark');
 
             const updateScrollEffects = () => {
                 const scrollY = window.pageYOffset || 0;
@@ -630,6 +677,14 @@
                     const speed = parseFloat(element.getAttribute('data-parallax')) || 0.1;
                     element.style.transform = `translateY(${scrollY * speed * -1}px)`;
                 });
+
+                if (heroWordmark) {
+                    const minScale = 0.55;
+                    const maxScroll = 600;
+                    const progress = Math.min(scrollY / maxScroll, 1);
+                    const scale = 1 - (1 - minScale) * progress;
+                    heroWordmark.style.transform = `scale(${scale})`;
+                }
             };
 
             updateScrollEffects();
