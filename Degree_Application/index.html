@@ -1,232 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Apply for undergraduate and graduate degree programs at Caridon University.">
-    <title>Degree Application - Caridon University</title>
-    <link rel="icon" href="../CCUU.png" type="image/png">
-    <style>
-        :root {
-            --primary: #0067C0;
-            --light: #ffffff;
-            --dark: #212529;
-            --lt: #f7f7f7;
-            --sl: rgba(0,0,0,0.1);
-            --transition: all 0.3s ease;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Caridon University Degree Application Form" />
+  <title>Apply for a Degree | Caridon University</title>
+  <style>
+    :root {
+      --bg: #060912;
+      --panel: rgba(18, 26, 48, 0.92);
+      --line: rgba(255, 255, 255, 0.14);
+      --text: #eaf1ff;
+      --muted: #b8c7ee;
+      --primary: #70a3ff;
+      --ok: #45d26d;
+      --danger: #ff6b6b;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at 20% 0%, #1a2d5d 0%, #0a1021 35%, #060912 80%);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+    .container {
+      width: min(920px, 95vw);
+      margin: 0 auto;
+    }
+    .topbar {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem;
+    }
+    .back {
+      color: var(--muted); text-decoration: none; border: 1px solid var(--line);
+      padding: .5rem .85rem; border-radius: 999px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: clamp(1rem, 2.6vw, 1.6rem);
+      box-shadow: 0 20px 40px rgba(0,0,0,.35);
+    }
+    h1 { font-size: clamp(1.5rem, 4.5vw, 2.2rem); margin-bottom: .6rem; }
+    p.sub { color: var(--muted); margin-bottom: 1.25rem; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: var(--lt);
-            color: var(--dark);
-            line-height: 1.6;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .header {
-            background: var(--light);
-            box-shadow: 0 2px 10px var(--sl);
-            position: sticky;
-            top: 0;
-            z-index: 5;
-        }
-
-        .header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 20px;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .logo {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 18px;
-            border-radius: 999px;
-            border: none;
-            background: var(--primary);
-            color: var(--light);
-            text-decoration: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        main {
-            padding: 2rem 0 3rem;
-        }
-
-        .card {
-            background: var(--light);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px var(--sl);
-        }
-
-        h1 {
-            color: var(--primary);
-            margin-bottom: 0.75rem;
-        }
-
-        .intro {
-            margin-bottom: 1.5rem;
-        }
-
-        form {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .grid-two {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 1rem;
-        }
-
-        label {
-            font-weight: 600;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            border: 1px solid #ccd8e5;
-            border-radius: 8px;
-            padding: 10px 12px;
-            font: inherit;
-            background: #fff;
-        }
-
-        .hint {
-            font-size: 0.9rem;
-            color: #4f5b66;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1.5rem 0 2rem;
-            color: #4f5b66;
-        }
-
-        @media (max-width: 700px) {
-            .grid-two {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    form { display: grid; gap: .95rem; }
+    .grid-2 {
+      display: grid; gap: .95rem;
+      grid-template-columns: 1fr 1fr;
+    }
+    label { font-weight: 600; font-size: .95rem; }
+    input, select, textarea {
+      width: 100%; margin-top: .35rem;
+      padding: .78rem .85rem;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(8, 12, 24, 0.9);
+      color: var(--text);
+      font: inherit;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid rgba(112, 163, 255, 0.7);
+      border-color: transparent;
+    }
+    .hint { color: var(--muted); font-size: .85rem; margin-top: .2rem; }
+    .actions { display: flex; gap: .7rem; align-items: center; flex-wrap: wrap; }
+    .btn {
+      border: 0; cursor: pointer; font: inherit;
+      color: #fff; border-radius: 999px;
+      padding: .72rem 1.15rem;
+      background: linear-gradient(135deg, var(--primary), #8b81ff);
+    }
+    .status { color: var(--muted); font-size: .92rem; }
+    @media (max-width: 760px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <a class="logo" href="../">Caridon University</a>
-            <nav aria-label="Degree application navigation">
-                <a class="btn" href="../">Back to Home</a>
-            </nav>
+  <div class="container">
+    <div class="topbar">
+      <a class="back" href="../">← Back to Home</a>
+    </div>
+
+    <section class="card">
+      <h1>Degree Application</h1>
+      <p class="sub">Complete the form below. Our admissions team will contact you by email.</p>
+
+      <form id="degree-form" action="https://formspree.io/f/xaqlbnle" method="POST">
+        <input type="hidden" name="_subject" value="New Degree Application - Caridon University" />
+        <input type="hidden" name="form_type" value="Degree Application" />
+
+        <div class="grid-2">
+          <label>
+            First Name
+            <input type="text" name="first_name" required />
+          </label>
+          <label>
+            Last Name
+            <input type="text" name="last_name" required />
+          </label>
         </div>
-    </header>
 
-    <main>
-        <div class="container">
-            <section class="card">
-                <h1>Apply for a Degree</h1>
-                <p class="intro">Submit your application for undergraduate or graduate degree programs at Caridon University. Our admissions team will contact you within 5–7 working days.</p>
-                <form>
-                    <div class="grid-two">
-                        <div>
-                            <label for="first-name">First Name</label>
-                            <input id="first-name" name="firstName" type="text" required autocomplete="given-name">
-                        </div>
-                        <div>
-                            <label for="last-name">Last Name</label>
-                            <input id="last-name" name="lastName" type="text" required autocomplete="family-name">
-                        </div>
-                    </div>
-
-                    <div class="grid-two">
-                        <div>
-                            <label for="email">Email</label>
-                            <input id="email" name="email" type="email" required autocomplete="email">
-                        </div>
-                        <div>
-                            <label for="phone">Phone</label>
-                            <input id="phone" name="phone" type="tel" required autocomplete="tel">
-                        </div>
-                    </div>
-
-                    <div class="grid-two">
-                        <div>
-                            <label for="degree-level">Degree Level</label>
-                            <select id="degree-level" name="degreeLevel" required>
-                                <option value="">Select a degree level</option>
-                                <option value="undergraduate">Undergraduate</option>
-                                <option value="graduate">Graduate</option>
-                                <option value="doctoral">Doctoral</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="program">Intended Program</label>
-                            <select id="program" name="program" required>
-                                <option value="">Select a program</option>
-                                <option value="computer-science">Computer Science</option>
-                                <option value="business-administration">Business Administration</option>
-                                <option value="fine-arts">Fine Arts</option>
-                                <option value="ethical-ai">Ethical AI</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label for="statement">Personal Statement</label>
-                        <textarea id="statement" name="statement" rows="6" required></textarea>
-                        <p class="hint">Tell us about your academic goals, interests, and why you want to join Caridon University.</p>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn">Submit Application</button>
-                        <button type="reset" class="btn btn-secondary">Reset Form</button>
-                    </div>
-                </form>
-            </section>
+        <div class="grid-2">
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            Phone
+            <input type="tel" name="phone" required />
+          </label>
         </div>
-    </main>
 
-    <footer>
-        <p>© 2051 Caridon University. Admissions Office: <a href="mailto:admissions@caridon.edu">admissions@caridon.edu</a></p>
-    </footer>
+        <div class="grid-2">
+          <label>
+            Date of Birth
+            <input type="date" name="dob" required />
+          </label>
+          <label>
+            Intended Start Term
+            <select name="start_term" required>
+              <option value="">Select term</option>
+              <option>Spring 2026</option>
+              <option>Fall 2026</option>
+              <option>Spring 2027</option>
+              <option>Fall 2027</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grid-2">
+          <label>
+            Program
+            <select name="program" required>
+              <option value="">Select program</option>
+              <option>Computer Science</option>
+              <option>Business Administration</option>
+              <option>Fine Arts</option>
+            </select>
+          </label>
+          <label>
+            Study Level
+            <select name="study_level" required>
+              <option value="">Select level</option>
+              <option>Bachelor</option>
+              <option>Master</option>
+              <option>Doctorate</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          Personal Statement
+          <textarea name="personal_statement" rows="6" required placeholder="Tell us your academic goals, interests, and why you chose Caridon University."></textarea>
+          <div class="hint">Recommended: 150–500 words</div>
+        </label>
+
+        <label>
+          Additional Notes (Optional)
+          <textarea name="notes" rows="4" placeholder="Scholarship interest, transfer credits, etc."></textarea>
+        </label>
+
+        <div class="actions">
+          <button class="btn" type="submit">Submit Application</button>
+          <span class="status" id="form-status">Ready to submit</span>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('degree-form');
+      const status = document.getElementById('form-status');
+      const submitBtn = form?.querySelector('button[type="submit"]');
+
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const endpoint = (form.getAttribute('action') || '').trim();
+        if (!endpoint) {
+          status.textContent = 'Form endpoint missing.';
+          return;
+        }
+
+        const formData = new FormData(form);
+        const originalBtnText = submitBtn.textContent;
+
+        try {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Submitting...';
+          status.textContent = 'Submitting application...';
+
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: formData
+          });
+
+          if (!res.ok) {
+            throw new Error('Submission failed. Please try again.');
+          }
+
+          form.reset();
+          submitBtn.textContent = 'Application Submitted!';
+          submitBtn.style.background = 'linear-gradient(135deg, #45d26d, #2aa95f)';
+          status.textContent = 'Success! Admissions has received your application.';
+
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+            submitBtn.style.background = '';
+            status.textContent = 'Ready to submit';
+          }, 2500);
+        } catch (err) {
+          submitBtn.textContent = 'Submit Failed';
+          submitBtn.style.background = 'linear-gradient(135deg, #ff6b6b, #e03131)';
+          status.textContent = err.message || 'Something went wrong.';
+
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+            submitBtn.style.background = '';
+            status.textContent = 'Ready to submit';
+          }, 2500);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
