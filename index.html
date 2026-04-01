@@ -8,8 +8,7 @@
     <link rel="icon" href="CCUU.png" type="image/png">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzE9xAESye6Kde-3hT-6B90nfwUkcS8Yw&sensor=false"></script>
     <script>
-        function test()
-        {
+        function test() {
             if (!window.google || !google.maps) {
                 var fallbackMap = document.getElementById("googleMap");
                 if (fallbackMap) {
@@ -23,423 +22,655 @@
                 }
                 return;
             }
-            var Map = {
+            var mapConfig = {
                 center: new google.maps.LatLng(16.88397681771519, 145.84532360638605),
                 zoom: 14,
-                mapTypeId: google.maps.MapTypeId.ROADMAP    
+                mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-            var map = new google.maps.Map(document.getElementById("googleMap"), Map);
+            new google.maps.Map(document.getElementById("googleMap"), mapConfig);
         }
 
         window.addEventListener('load', test);
     </script>
     <style>
-        :root {
-            --primary: #0067C0;
-            --secondary: #4CC2FF;
-            --light: #ffffff;
-            --dark: #212529;
-            --lt: #f7f7f7;
-            --dk: #343a40;
-            --sl: rgba(0,0,0,0.1);
-            --sd: rgba(255,255,255,0.1);
-            --slt: rgba(0,0,0,0.2);
-            --sdt: rgba(255,255,255,0.2);
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        @font-face {
+            font-family: 'Special Gothic';
+            src: url('SpecialGothicCondensedOne-Regular.ttf') format('truetype');
+            font-display: swap;
         }
 
-        /* 基础重置 & 性能优化 */
+        :root {
+            --bg: #060912;
+            --bg-soft: #0e1527;
+            --surface: rgba(20, 30, 55, 0.65);
+            --surface-strong: rgba(27, 39, 68, 0.9);
+            --text: #eaf1ff;
+            --muted: #b8c7ee;
+            --primary: #70a3ff;
+            --accent: #59f0d4;
+            --line: rgba(255, 255, 255, 0.12);
+            --shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+            --radius: 22px;
+            --scrollY: 0px;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
             scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: var(--lt);
-            color: var(--dark);
-            overflow-x: hidden;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at 15% 0%, #1a2d5d 0%, #0a1021 35%, #060912 75%);
+            color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* 主题切换系统 */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --primary: #4CC2FF;
-                --secondary: #0067C0;
-                --light: #121212;
-                --dark: #ffffff;
-                --lt: #343a40;
-                --dk: #f7f7f7;
-                --sl: rgba(255,255,255,0.1);
-                --sd: rgba(0,0,0,0.1);
-                --slt: rgba(255,255,255,0.2);
-                --sdt: rgba(0,0,0,0.2);
-            }
-        }
-
-
-        /* 布局系统 */
         .container {
-            width: 100%;
-            max-width: 1200px;
+            width: min(1120px, 92vw);
             margin: 0 auto;
-            padding: 0 20px;
         }
 
-        /* 动画组件 */
-        .animated-card {
-            background: var(--light);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px var(--sl);
-            transition: var(--transition);
-            transform: translateY(0);
-            opacity: 0;
-            animation: fadeIn 0.6s forwards;
+        .site-header {
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 1000;
+            backdrop-filter: blur(14px);
+            background: rgba(6, 10, 20, 0.55);
+            border-bottom: 1px solid var(--line);
+            transition: padding 0.3s ease, background 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; transform: translateY(0); }
+        .site-header.scrolled {
+            background: rgba(6, 10, 20, 0.85);
         }
 
-        .card-hover {
-            transition: var(--transition);
-        }
-        .card-hover:hover {
-            transform: perspective(1000px) rotateY(10deg) scale(1.02);
-            box-shadow: 0 15px 30px var(--slt);
-        }
-
-        /* 按钮系统 */
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: var(--primary);
-            color: var(--light);
-            border-radius: 50px;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-        }
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(42, 92, 170, 0.3);
-        }
-        .btn:active {
-            transform: translateY(1px);
-        }
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255,255,255,0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-        .btn:focus:not(:active)::after {
-            animation: ripple 0.6s ease-out;
-        }
-
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(20, 20);
-                opacity: 0;
-            }
-        }
-
-        /* 视差效果 */
-        .parallax-section {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            position: relative;
-            height: 60vh;
+        .header-inner {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-        }
-        .parallax-content {
-            background: rgba(255,255,255,0.9);
-            padding: 2rem;
-            border-radius: 12px;
-            transform: translateZ(0);
+            min-height: 84px;
+            gap: 1rem;
+            transition: min-height 0.3s ease;
         }
 
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .parallax-section {
-                background-attachment: scroll;
-                height: auto;
-                padding: 4rem 0;
-            }
+        .site-header.scrolled .header-inner {
+            min-height: 68px;
+        }
+
+        .logo {
+            font-family: 'Special Gothic', 'Segoe UI', sans-serif;
+            letter-spacing: 1px;
+            font-size: 1.7rem;
+            color: #fff;
+            text-decoration: none;
         }
 
         .header-nav {
             display: flex;
             flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 0.6rem;
+        }
+
+        .nav-pill,
+        .btn {
+            border: 1px solid transparent;
+            color: var(--text);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            padding: 0.62rem 1.1rem;
+            border-radius: 999px;
+            transition: 0.25s ease;
+            cursor: pointer;
+            font: inherit;
+        }
+
+        .nav-pill {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .nav-pill:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), #8b81ff);
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(112, 163, 255, 0.45);
+            border: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 14px 26px rgba(112, 163, 255, 0.5);
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            padding-top: 105px;
+            isolation: isolate;
+        }
+
+        .hero::before,
+        .hero::after {
+            content: "";
+            position: absolute;
+            border-radius: 999px;
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        .hero::before {
+            width: clamp(260px, 38vw, 560px);
+            aspect-ratio: 1;
+            background: radial-gradient(circle, rgba(89, 240, 212, 0.6) 0%, rgba(89, 240, 212, 0) 70%);
+            top: calc(8% + (var(--scrollY) * 0.04));
+            right: -6%;
+        }
+
+        .hero::after {
+            width: clamp(240px, 35vw, 500px);
+            aspect-ratio: 1;
+            background: radial-gradient(circle, rgba(140, 127, 255, 0.55) 0%, rgba(140, 127, 255, 0) 72%);
+            bottom: 6%;
+            left: -6%;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.9fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .hero-kicker {
+            display: inline-block;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.4rem, 7.6vw, 5.4rem);
+            line-height: 0.95;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title .accent {
+            background: linear-gradient(130deg, #ffffff 22%, var(--accent) 80%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-sub {
+            color: var(--muted);
+            max-width: 560px;
+            font-size: 1.08rem;
+            margin-bottom: 1.6rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .outline {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: none;
+        }
+
+        .hero-card {
+            border-radius: var(--radius);
+            padding: clamp(1.2rem, 2.8vw, 2rem);
+            background: linear-gradient(150deg, rgba(35, 51, 90, 0.8), rgba(18, 26, 48, 0.95));
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+            transform: translateY(calc(var(--scrollY) * -0.05));
+            transition: transform 0.25s linear;
+        }
+
+        .hero-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .hero-card p {
+            color: var(--muted);
+        }
+
+        .metrics {
+            margin-top: 1.1rem;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.8rem;
+        }
+
+        .metric {
+            padding: 0.8rem;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+            text-align: center;
+        }
+
+        .metric strong {
+            display: block;
+            font-size: 1.25rem;
+            line-height: 1.1;
+        }
+
+        .metric span {
+            color: var(--muted);
+            font-size: 0.84rem;
+        }
+
+        section {
+            padding: clamp(4rem, 8vw, 7rem) 0;
         }
 
         .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+            font-size: clamp(1.8rem, 4.6vw, 3rem);
+            line-height: 1.04;
+            margin-bottom: 0.75rem;
         }
 
-        .map-wrapper {
+        .section-subtitle {
+            color: var(--muted);
+            margin-bottom: 2.1rem;
+            max-width: 700px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 1.45rem;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+            transition: border-color 0.25s ease, transform 0.25s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(89, 240, 212, 0.48);
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            margin-bottom: 0.45rem;
+            font-size: 1.2rem;
+        }
+
+        .card p,
+        .card time {
+            color: var(--muted);
+        }
+
+        .feature-number {
+            display: inline-flex;
+            width: 2.3rem;
+            height: 2.3rem;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.7rem;
+            background: rgba(112, 163, 255, 0.18);
+            border: 1px solid rgba(112, 163, 255, 0.45);
+            color: #b9ccff;
+            font-weight: 700;
+        }
+
+        .contact-shell {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            align-items: stretch;
+        }
+
+        .contact-panel,
+        .map-panel {
+            background: var(--surface-strong);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(1.1rem, 2.5vw, 1.8rem);
+        }
+
+        .form {
+            display: grid;
+            gap: 0.9rem;
+        }
+
+        .form-control {
             width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(8, 12, 24, 0.85);
+            color: var(--text);
+            padding: 0.8rem 0.9rem;
+            font: inherit;
+        }
+
+        .form-control:focus {
+            outline: 2px solid rgba(89, 240, 212, 0.65);
+            border-color: transparent;
+        }
+
+        .sr-label {
+            font-weight: 600;
+            color: #d5e2ff;
         }
 
         #googleMap {
             width: 100%;
-            height: 400px;
+            min-height: 320px;
+            border-radius: 14px;
         }
 
-        .form-control {
-            padding: 12px;
-            border-radius: 8px;
-            border: 2px solid #dce4ed;
-            font: inherit;
+        footer {
+            border-top: 1px solid var(--line);
+            background: rgba(2, 4, 10, 0.95);
+            padding: 2rem 0;
         }
 
-        .sr-label {
-            text-align: left;
-            font-weight: 600;
+        .footer-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 980px) {
+            .hero-grid,
+            .contact-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-card {
+                max-width: 620px;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .header-inner {
+                flex-direction: column;
+                justify-content: center;
+                padding: 0.7rem 0;
+                min-height: 102px;
+            }
+
+            main {
+                padding-top: 112px;
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-actions {
+                width: 100%;
+            }
+
+            .hero-actions .btn {
+                flex: 1;
+            }
+
+            .metrics {
+                grid-template-columns: repeat(3, minmax(80px, 1fr));
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <header class="header" style="position: fixed; width: 100%; z-index: 1000; background: var(--light); box-shadow: 0 2px 10px var(--sl);">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0;">
-            <div class="logo" style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">Caridon University</div>
+    <header class="site-header" id="site-header">
+        <div class="container header-inner">
+            <a href="#home" class="logo">Caridon University</a>
             <nav class="header-nav" aria-label="Main navigation">
-                <a href="#home" class="btn" style="margin-left: 1rem;">Home</a>
-                <a href="#features" class="btn" style="margin-left: 1rem;">Features</a>
-                <a href="#courses" class="btn" style="margin-left: 1rem;">Courses</a>
-                <a href="#contact" class="btn" style="margin-left: 1rem;">Contact</a>
-                <a href="Degree_Application/" class="btn" style="margin-left: 1rem;">Apply Now</a>
+                <a href="#home" class="nav-pill">Home</a>
+                <a href="#features" class="nav-pill">Features</a>
+                <a href="#courses" class="nav-pill">Courses</a>
+                <a href="#events" class="nav-pill">Events</a>
+                <a href="#contact" class="nav-pill">Contact</a>
+                <a href="Degree_Application/" class="btn">Apply Now</a>
             </nav>
         </div>
     </header>
 
-    <!-- 主要内容 -->
-    <main style="padding-top: 80px;">
-        <!-- 英雄区域 -->
-        <section id="home" class="parallax-section" style="background-image: url('https://source.unsplash.com/random/1920x1080/?campus');">
+    <main>
+        <section id="home" class="hero">
+            <div class="container hero-grid">
+                <div>
+                    <span class="hero-kicker">Future-ready education</span>
+                    <h1 class="hero-title">Shape Your <span class="accent">Future</span> at Caridon</h1>
+                    <p class="hero-sub">A modern university experience with immersive learning studios, global faculty collaboration, and career pathways built for tomorrow's industries.</p>
+                    <div class="hero-actions">
+                        <a href="Degree_Application/" class="btn">Apply for a Degree</a>
+                        <a href="#features" class="btn outline">Explore Campus Life</a>
+                    </div>
+                </div>
+                <aside class="hero-card" data-parallax="0.16">
+                    <h3>Designing thinkers, builders, and leaders.</h3>
+                    <p>From AI labs to creative arts residencies, Caridon connects bold ideas with practical impact.</p>
+                    <div class="metrics">
+                        <div class="metric">
+                            <strong>120+</strong>
+                            <span>Programs</span>
+                        </div>
+                        <div class="metric">
+                            <strong>80+</strong>
+                            <span>Countries</span>
+                        </div>
+                        <div class="metric">
+                            <strong>95%</strong>
+                            <span>Career Outcomes</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="features">
             <div class="container">
-                <div class="animated-card" style="animation-delay: 0.2s; text-align: center;">
-                    <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);">Welcome to Caridon University</h1>
-                    <p style="font-size: 1.2rem; margin-bottom: 2rem;">Where innovation meets tradition</p>
-                    <a href="#features" class="btn">Learn More</a>
-                    <a href="Degree_Application/" class="btn" style="margin-left: 0.5rem;">Apply for a Degree</a>
+                <h2 class="section-title">A campus experience that moves with you</h2>
+                <p class="section-subtitle">Inspired by the world's most expressive digital experiences, every touchpoint is crafted to feel clear, premium, and alive.</p>
+                <div class="grid-3">
+                    <article class="card reveal">
+                        <span class="feature-number">01</span>
+                        <h3>Immersive Learning</h3>
+                        <p>Project-based curriculum, flexible studios, and interdisciplinary labs built to turn curiosity into capability.</p>
+                    </article>
+                    <article class="card reveal">
+                        <span class="feature-number">02</span>
+                        <h3>Global Collaboration</h3>
+                        <p>Connect with peers and mentors across continents through shared research, exchange programs, and hybrid classrooms.</p>
+                    </article>
+                    <article class="card reveal">
+                        <span class="feature-number">03</span>
+                        <h3>Career Momentum</h3>
+                        <p>Industry placements, startup support, and coaching help students launch meaningful careers with confidence.</p>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- 特性区域 -->
-        <section id="features" style="padding: 5rem 0; background: var(--light);;">
+        <section id="courses">
             <div class="container">
-                <h2 class="section-title">Why Choose Caridon?</h2>
-                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
-                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.4s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Innovative Learning</h3>
-                        <p>Our programs are designed to inspire creativity and critical thinking, preparing students for the challenges of the future.</p>
-                    </div>
-                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.6s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Global Community</h3>
-                        <p>Connect with students and faculty from around the world, fostering a diverse and inclusive learning environment.</p>
-                    </div>
-                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.8s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Career Success</h3>
-                        <p>Benefit from our comprehensive career services and industry partnerships to launch your professional journey.</p>
-                    </div>
+                <h2 class="section-title">Programs for ambitious minds</h2>
+                <p class="section-subtitle">Build deep expertise with degrees designed around real-world challenges and future opportunities.</p>
+                <div class="grid-3">
+                    <article class="card reveal">
+                        <h3>Computer Science</h3>
+                        <p>Advanced computing, intelligent systems, and software engineering for the next generation of innovators.</p>
+                    </article>
+                    <article class="card reveal">
+                        <h3>Business Administration</h3>
+                        <p>Strategy, entrepreneurship, and leadership with practical projects tied to global markets.</p>
+                    </article>
+                    <article class="card reveal">
+                        <h3>Fine Arts</h3>
+                        <p>Visual storytelling, digital media, and studio practice in a collaborative creative community.</p>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- 课程区域 -->
-        <section id="courses" style="padding: 5rem 0; background: var(--lt);">
+        <section id="events">
             <div class="container">
-                <h2 class="section-title">Our Courses</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.4s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Computer Science</h3>
-                        <p>Explore the cutting-edge of technology with our comprehensive computer science program.</p>
-                    </div>
-                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.6s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Business Administration</h3>
-                        <p>Develop the skills needed to lead and manage in today's dynamic business environment.</p>
-                    </div>
-                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.8s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Fine Arts</h3>
-                        <p>Unleash your creativity with our fine arts program, designed for aspiring artists and designers.</p>
-                    </div>
+                <h2 class="section-title">Upcoming events</h2>
+                <p class="section-subtitle">Join open sessions and signature events to experience the Caridon community firsthand.</p>
+                <div class="grid-3">
+                    <article class="card reveal">
+                        <h3>Tech Innovation Workshop</h3>
+                        <p>Hands-on prototypes and talks with faculty shaping the future of computing.</p>
+                        <time datetime="2060-10-15">October 15, 2060</time>
+                    </article>
+                    <article class="card reveal">
+                        <h3>Global Business Forum</h3>
+                        <p>Explore international opportunities with alumni founders and industry leaders.</p>
+                        <time datetime="2060-11-05">November 5, 2060</time>
+                    </article>
+                    <article class="card reveal">
+                        <h3>Art Exhibition</h3>
+                        <p>Student and faculty work across digital and physical mediums in our annual showcase.</p>
+                        <time datetime="2060-12-10">December 10, 2060</time>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- 活动区域 -->
-        <section id="events" style="padding: 5rem 0; background: var(--light);">
-            <div class="container">
-                <h2 class="section-title">Upcoming Events</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.4s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Tech Innovation Workshop</h3>
-                        <p>Join us for a hands-on workshop exploring the latest in tech innovation.</p>
-                        <p style="font-style: italic; margin-top: 1rem;">October 15, 2060</p>
-                    </div>
-                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.6s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Global Business Forum</h3>
-                        <p>Connect with industry leaders and explore global business opportunities.</p>
-                        <p style="font-style: italic; margin-top: 1rem;">November 5, 2060</p>
-                    </div>
-                    <div class="animated-card card-hover" style="flex: 1; min-width: 300px; animation-delay: 0.8s;">
-                        <h3 style="color: var(--primary); margin-bottom: 1rem;">Art Exhibition</h3>
-                        <p>Showcase of student and faculty work in our annual art exhibition.</p>
-                        <p style="font-style: italic; margin-top: 1rem;">December 10, 2060</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 联系区域 -->
-        <section id="contact" style="padding: 5rem 0; background: var(--lt);">
-            <div class="container">
-                <div class="animated-card card-hover" style="max-width: 600px; margin: 0 auto; animation-delay: 0.3s; text-align: center;">
-                    <h2 class="section-title" style="margin-bottom: 2rem;">Get In Touch</h2>
-                    <p style="margin-bottom: 2rem;">Have questions? Reach out to us!</p>
-                    <form id="contact-form" style="display: grid; gap: 1.5rem;">
+        <section id="contact">
+            <div class="container contact-shell">
+                <div class="contact-panel">
+                    <h2 class="section-title" style="font-size: clamp(1.5rem, 3.4vw, 2.25rem);">Get in touch</h2>
+                    <p class="section-subtitle" style="margin-bottom: 1.25rem;">Questions about admissions, programs, or campus life? We'd love to hear from you.</p>
+                    <form id="contact-form" class="form">
                         <label class="sr-label" for="contact-name">Your Name</label>
                         <input id="contact-name" name="name" type="text" placeholder="Your Name" required class="form-control">
                         <label class="sr-label" for="contact-email">Your Email</label>
                         <input id="contact-email" name="email" type="email" placeholder="Your Email" required class="form-control">
                         <label class="sr-label" for="contact-message">Your Message</label>
                         <textarea id="contact-message" name="message" placeholder="Your Message" rows="5" required class="form-control"></textarea>
-                        <button type="submit" class="btn" style="justify-self: center;">Send Message</button>
+                        <button type="submit" class="btn">Send Message</button>
                     </form>
                 </div>
+                <div class="map-panel">
+                    <h2 class="section-title" style="font-size: clamp(1.5rem, 3.4vw, 2.25rem);">We are located here</h2>
+                    <div id="googleMap" aria-label="Campus location map"></div>
+                </div>
             </div>
-
-            <!-- 地图区域 -->
-            <br>
-            <h2 class="section-title" style="margin-bottom: 2rem;">We are located here</h2>
-            <div class="map-wrapper">
-                <div id="googleMap" aria-label="Campus location map"></div>
-            </div>
-
         </section>
     </main>
 
-    <!-- 页脚 -->
-    <footer style="background: var(--dark); color: var(--light); padding: 2rem 0; text-align: center;">
-        <div class="container">
+    <footer>
+        <div class="container footer-row">
             <p>© 2051 Caridon University. All rights reserved.</p>
-            <div style="margin-top: 1rem;">
-                <a href="https://peisi0.github.io/Caridon/Privacy_Policy" style="color: var(--light); margin: 0 1rem; text-decoration: none;">Privacy Policy</a>
-                <a href="https://peisi0.github.io/Caridon/Terms_of_Service" style="color: var(--light); margin: 0 1rem; text-decoration: none;">Terms of Service</a>
-                <a href="#" style="color: var(--light); margin: 0 1rem; text-decoration: none;">Contact Us</a>
+            <div class="footer-links">
+                <a href="https://peisi0.github.io/Caridon/Privacy_Policy">Privacy Policy</a>
+                <a href="https://peisi0.github.io/Caridon/Terms_of_Service">Terms of Service</a>
+                <a href="#contact">Contact Us</a>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript 动画库 & 功能 -->
     <script>
-        // 页面加载动画
         document.addEventListener('DOMContentLoaded', () => {
-            // 滚动动画
-            const animateOnScroll = () => {
-                const elements = document.querySelectorAll('.animated-card');
-                elements.forEach(el => {
-                    const elementPosition = el.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.2;
-                    
-                    if(elementPosition < screenPosition) {
-                        el.style.animationPlayState = 'running';
-                    }
+            const header = document.getElementById('site-header');
+            const parallaxElements = document.querySelectorAll('[data-parallax]');
+
+            const updateScrollEffects = () => {
+                const scrollY = window.pageYOffset || 0;
+                document.documentElement.style.setProperty('--scrollY', scrollY + 'px');
+
+                if (header) {
+                    header.classList.toggle('scrolled', scrollY > 20);
+                }
+
+                parallaxElements.forEach((element) => {
+                    const speed = parseFloat(element.getAttribute('data-parallax')) || 0.1;
+                    element.style.transform = `translateY(${scrollY * speed * -1}px)`;
                 });
             };
 
-            window.addEventListener('scroll', animateOnScroll);
-            animateOnScroll(); // 初始检查
+            updateScrollEffects();
+            window.addEventListener('scroll', updateScrollEffects, { passive: true });
 
-            // 按钮波纹效果
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    const x = e.clientX - e.target.getBoundingClientRect().left;
-                    const y = e.clientY - e.target.getBoundingClientRect().top;
-                    
-                    const ripples = document.createElement('span');
-                    ripples.style.left = `${x}px`;
-                    ripples.style.top = `${y}px`;
-                    this.appendChild(ripples);
-                    
-                    setTimeout(() => {
-                        ripples.remove();
-                    }, 1000);
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                anchor.addEventListener('click', (event) => {
+                    const targetId = anchor.getAttribute('href');
+                    if (!targetId || targetId === '#') {
+                        return;
+                    }
+
+                    const target = document.querySelector(targetId);
+                    if (!target) {
+                        return;
+                    }
+
+                    event.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 });
             });
 
-            // 平滑滚动
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-
-            // 表单提交动画
             const contactForm = document.getElementById('contact-form');
-            if(contactForm) {
-                contactForm.addEventListener('submit', function(e) {
+            if (contactForm) {
+                contactForm.addEventListener('submit', function (e) {
                     e.preventDefault();
                     const submitBtn = this.querySelector('button[type="submit"]');
                     submitBtn.textContent = 'Sending...';
                     submitBtn.style.opacity = '0.7';
-                    
-                    // 模拟异步提交
+
                     setTimeout(() => {
                         submitBtn.textContent = 'Message Sent!';
-                        submitBtn.style.backgroundColor = '#4BB543';
+                        submitBtn.style.background = 'linear-gradient(135deg, #45d26d, #2aa95f)';
                         setTimeout(() => {
                             submitBtn.textContent = 'Send Message';
-                            submitBtn.style.backgroundColor = '';
                             submitBtn.style.opacity = '';
+                            submitBtn.style.background = '';
                             this.reset();
                         }, 2000);
                     }, 1500);
                 });
-            }
-        });
-
-        // 视差效果增强
-        window.addEventListener('scroll', function() {
-            const parallax = document.querySelector('.parallax-section');
-            if(parallax) {
-                let scrollPosition = window.pageYOffset;
-                parallax.style.backgroundPositionY = scrollPosition * 0.7 + 'px';
             }
         });
     </script>
